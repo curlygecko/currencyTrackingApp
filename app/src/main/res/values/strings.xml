@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">usdParser</string>
+    <string name="guncelkur"></string>
+    <string name="kur">GÜNCEL KUR</string>
+    <string name="cek">KURU GÖSTER</string>
+    <string name="sil">SİL</string>
+</resources>
