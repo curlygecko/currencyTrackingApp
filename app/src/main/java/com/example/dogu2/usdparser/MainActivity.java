@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,8 +25,9 @@ import java.util.TimerTask;
 public class MainActivity extends Activity {
 
     public TextView guncelKur;
-    public Button kurButonu, silici;
+    public ImageButton kurButonu;
     boolean acikmi=true;
+    public ImageView dol, eur, alt;
 
 
     @Override
@@ -34,25 +37,27 @@ public class MainActivity extends Activity {
 
         guncelKur = findViewById(R.id.degisenKur);
         kurButonu = findViewById(R.id.kurbutonu);
-        silici = findViewById(R.id.silici);
+        dol = findViewById(R.id.dolar);
+        dol.setVisibility(View.INVISIBLE);
+        eur = findViewById(R.id.euro);
+        eur.setVisibility(View.INVISIBLE);
+        alt = findViewById(R.id.altin);
+        alt.setVisibility(View.INVISIBLE);
+
 
 
         kurButonu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new mytask(MainActivity.this).execute();
+                dol.setVisibility(View.VISIBLE);
+                eur.setVisibility(View.VISIBLE);
+                alt.setVisibility(View.VISIBLE);
+
             }
         });
 
-
-        silici.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                guncelKur.setText("");
-            }
-        });
-
-        }
+    }
 
 
     public class mytask extends AsyncTask<Void, Void, String>{
@@ -62,13 +67,13 @@ public class MainActivity extends Activity {
             activityReference = new WeakReference<>(context);
         }
 
-    @Override
-    protected String doInBackground(Void... strings) {
-        String usd="";
-        String gold="";
-        String avro="";
-        String result="";
-        Document doc;
+        @Override
+        protected String doInBackground(Void... strings) {
+            String usd="";
+            String gold="";
+            String avro="";
+            String result="";
+            Document doc;
             try {
                 doc = Jsoup.connect("https://kur.doviz.com/serbest-piyasa/amerikan-dolari").get();
                 Element dolar = doc.select("span.menu-row2").get(1);
@@ -78,25 +83,21 @@ public class MainActivity extends Activity {
                 usd = dolar.text();
                 gold = altin.text();
                 avro = euro.text();
-                result = "USD: " + usd + "\nEURO: " + avro + "\nALTIN: " + gold;
+                result = usd + "\n\n" + avro + "\n\n" + gold;
             } catch (IOException e) {
             }
             return result;
         }
 
 
-    @Override
-    protected void onPostExecute(String kur) {
+        @Override
+        protected void onPostExecute(String kur) {
             guncelKur.setText(kur);
 
-    }
+        }
 
 
     }}
-
-
-
-
 
 
 

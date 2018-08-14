@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">usdParser</string>
     <string name="guncelkur"></string>
-    <string name="kur">GÜNCEL KUR</string>
-    <string name="cek">KURU GÖSTER</string>
-    <string name="sil">SİL</string>
+    <string name="kur"></string>
+    <string name="cek"></string>
+    <string name="dolar"></string>
+    <string name="euro"></string>
+    <string name="altin"></string>
 </resources>
